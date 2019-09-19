@@ -17,7 +17,10 @@
 #endif
 
 
-
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 void i2c_master_gpio_init(uint8_t sda, uint8_t sck);
 void i2c_master_init(void);
@@ -34,4 +37,7 @@ bool i2c_master_checkAck(void);
 void i2c_master_send_ack(void);
 void i2c_master_send_nack(void);
 
+#ifdef __cplusplus
+}
+#endif /* End of CPP guard */
 #endif //__I2C_MASTER_JKK_H__
