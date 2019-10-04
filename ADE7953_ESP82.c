@@ -179,5 +179,5 @@ uint16_t ICACHE_FLASH_ATTR Ade7953_getActivePower(uint8_t channel){
 }
 
 uint32_t ICACHE_FLASH_ATTR Ade7953_getEnergy(uint8_t channel){ // Any read reset register. Energy count from zero after read.
-    return ((Ade7953Read(channel < 2 ? 0x31F : 0x31E) * 10 ) / 64);// Ws (watt * secound divide by 3600 for Wh)
+    return ((Ade7953Read(channel < 2 ? 0x31F : 0x31E) * ADE7953_PREF ) / 1000);// Ws (watt * secound divide by 3600 for Wh)
 }  
