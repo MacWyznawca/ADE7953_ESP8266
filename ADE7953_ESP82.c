@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 LOCAL uint8_t _ade7953_write_addr;
 LOCAL uint8_t _ade7953_read_addr;
 
-#define ADE7953_PREF            (154)
+#define ADE7953_PREF            (155)
 #define ADE7953_UREF            (26000L)
 #define ADE7953_IREF            (1000)
 
