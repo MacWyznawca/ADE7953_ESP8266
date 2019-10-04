@@ -143,10 +143,11 @@ int8_t ICACHE_FLASH_ATTR Ade7953_init(){
     Ade7953Write(0x102, 0x0004);    // Locking the communication interface (Clear bit COMM_LOCK), Enable HPF
     Ade7953Write(0x0FE, 0x00AD);    // Unlock register 0x120
     Ade7953Write(0x120, 0x0030);    // Configure optimum setting
+    Ade7953Write(0x201, 0b0101);    // Only positive acumulation od energy
 }
 
 void ICACHE_FLASH_ATTR Ade7953GetData(void){
-    ade7953_voltage_rms = Ade7953Read(0x31C);      // Both relays
+    ade7953_voltage_rms = Ade7953Read(0x21C);      // Both relays
 
     ade7953_current_rms1 = Ade7953Read(0x21B);     // Relay 1
     if (ade7953_current_rms1 < 2000) {             // No load threshold (20mA)
@@ -161,7 +162,7 @@ void ICACHE_FLASH_ATTR Ade7953GetData(void){
         ade7953_current_rms2 = 0;
         ade7953_active_power2 = 0;
     } else {
-        ade7953_active_power2 = Ade7953Read(0x312);  // Relay 2
+        ade7953_active_power2 = Ade7953Read(0x212);  // Relay 2
     }
  
   //  os_printf("V: %d, A1: %d, A2: %d, P1: %d, P2: %d\n",ade7953_voltage_rms,ade7953_current_rms1,ade7953_current_rms2, ade7953_active_power1,ade7953_active_power2);
@@ -177,6 +178,6 @@ uint16_t ICACHE_FLASH_ATTR Ade7953_getActivePower(uint8_t channel){
     return (channel < 2 ? ade7953_active_power1 : ade7953_active_power2 ) / ADE7953_PREF;
 }
 
-uint32_t ICACHE_FLASH_ATTR Ade7953_getEnergy(uint8_t channel){ // Not working (bad data)
-    return (Ade7953Read(channel < 2 ? 0x21F : 0x21E)) / 1000L;
+uint32_t ICACHE_FLASH_ATTR Ade7953_getEnergy(uint8_t channel){ // Any read reset register. Energy count from zero after read.
+    return ((Ade7953Read(channel < 2 ? 0x31F : 0x31E) * 10 ) / 64);// Ws (watt * secound divide by 3600 for Wh)
 }  

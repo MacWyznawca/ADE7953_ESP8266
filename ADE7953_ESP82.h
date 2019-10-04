@@ -35,14 +35,16 @@ extern "C"
 {
 #endif
 
-int8_t Ade7953_init();
+int8_t Ade7953_init(); // Setup GPIO and ADE7953 registers. Call first!
 
-void Ade7953GetData(void);
-uint16_t Ade7953_getCurrent(uint8_t channel); // A x100 (dyvide by 100 for Amper)
+// Each value reading resets the register (nergy count from zero after read).
+uint32_t Ade7953_getEnergy(uint8_t channel); // Ws (watt * secound divide by 3600 for Wh)
+
+void Ade7953GetData(void); // You must called this function before any „get”.
+// The data in „get” finctions is current at the moment the read function is called.
+uint16_t Ade7953_getCurrent(uint8_t channel); // A x100 (dyvide by 100 for Amper). Data 
 uint16_t Ade7953_getVoltage(); 
 uint16_t Ade7953_getActivePower(uint8_t channel); 
-
-uint32_t Ade7953_getEnergy(uint8_t channel); // Don't working (bad data)! 
 
 #ifdef __cplusplus
 }
