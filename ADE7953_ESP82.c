@@ -143,7 +143,7 @@ int8_t ICACHE_FLASH_ATTR Ade7953_init(){
     Ade7953Write(0x102, 0x0004);    // Locking the communication interface (Clear bit COMM_LOCK), Enable HPF
     Ade7953Write(0x0FE, 0x00AD);    // Unlock register 0x120
     Ade7953Write(0x120, 0x0030);    // Configure optimum setting
-    Ade7953Write(0x201, 0b0101);    // Only positive acumulation od energy
+ // Ade7953Write(0x201, 0b0101);    // Only positive acumulation od energy (not necessary)
 }
 
 void ICACHE_FLASH_ATTR Ade7953GetData(void){
