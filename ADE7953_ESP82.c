@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ADE7953_ESP82.h"
 #include "mem.h"
 #include "gpio.h"
-#include "gpios_id.h"
 
 #include "i2c_jk.h"
 
